@@ -3,8 +3,6 @@ package com.mrwhoknows.tictactoe
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -12,54 +10,57 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import com.mrwhoknows.tictactoe.ui.theme.CadetGrey
+import com.mrwhoknows.tictactoe.ui.theme.CandyPink
 
-@Preview(showBackground = true)
 @Composable
-fun GameBoard() {
+fun GameBoard(
+    modifier: Modifier = Modifier, bgColor: Color = Color.White
+) {
     Canvas(
-        modifier = Modifier
-            .size(400.dp)
-            .padding(16.dp)
-            .background(Color.DarkGray)
+        modifier = modifier
+            .background(bgColor)
             .aspectRatio(1f)
     ) {
         (1..2).forEach {
             drawVerticalLine(size.width * it / 3)
             drawHorizontalLine(size.height * it / 3)
         }
-        drawDiagonalLineRightToLeft()
-        drawDiagonalLineLeftToRight()
     }
 }
 
+@Preview(showBackground = true)
+@Composable
+fun GameBoardPreview() {
+    GameBoard()
+}
+
 fun DrawScope.drawVerticalLine(
-    x: Float,
-    color: Color = Color.White,
-    strokeWidth: Float = 8f
+    x: Float, color: Color = CadetGrey, strokeWidth: Float = 8f
 ) {
     drawLine(
-        color = color, start = Offset(x, 0f), end = Offset(x, size.width),
-        cap = StrokeCap.Butt, strokeWidth = strokeWidth
+        color = color,
+        start = Offset(x, 0f),
+        end = Offset(x, size.width),
+        cap = StrokeCap.Butt,
+        strokeWidth = strokeWidth
     )
 }
 
 fun DrawScope.drawHorizontalLine(
-    y: Float,
-    color: Color = Color.White,
-    strokeWidth: Float = 8f
+    y: Float, color: Color = CadetGrey, strokeWidth: Float = 8f
 ) {
     drawLine(
         color = color,
         start = Offset(0f, y),
         end = Offset(size.height, y),
-        cap = StrokeCap.Butt, strokeWidth = strokeWidth
+        cap = StrokeCap.Butt,
+        strokeWidth = strokeWidth
     )
 }
 
 fun DrawScope.drawDiagonalLineLeftToRight(
-    color: Color = Color.White,
-    strokeWidth: Float = 8f
+    color: Color = CandyPink, strokeWidth: Float = 8f
 ) {
     drawLine(
         color = color,
@@ -71,7 +72,7 @@ fun DrawScope.drawDiagonalLineLeftToRight(
 }
 
 fun DrawScope.drawDiagonalLineRightToLeft(
-    color: Color = Color.White, strokeWidth: Float = 8f
+    color: Color = CandyPink, strokeWidth: Float = 8f
 ) {
     drawLine(
         color = color,
